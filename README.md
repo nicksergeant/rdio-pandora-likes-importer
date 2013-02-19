@@ -1,7 +1,4 @@
-Rdio Pandora Likes importer
-===========================
-
-A script to import Pandora Likes to an Rdio playlist.
+This is a workflow and Python script to import Pandora Likes to an Rdio playlist.
 
 ## Harvesting Pandora likes
 
