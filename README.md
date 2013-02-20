@@ -19,3 +19,6 @@ This is a workflow and Python script to import Pandora Likes to an Rdio playlist
 4. Copy the output to a text file for later parsing. This file will spit out your liked tracks in this format:
 
         Artist -- Track Title
+
+## Requirements
+
