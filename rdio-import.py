@@ -23,7 +23,7 @@ from rdio import Rdio
 from rdio_consumer_credentials import RDIO_CONSUMER_KEY, RDIO_CONSUMER_SECRET
 from urllib2 import HTTPError
 
-import csv, time
+import csv
 
 rdio = Rdio((RDIO_CONSUMER_KEY, RDIO_CONSUMER_SECRET))
 
@@ -69,7 +69,7 @@ try:
 
             # Try and find this track on Rdio.
             search = rdio.call('search', {
-                'query': track[0],
+                'query': track[0].encode('ascii', 'ignore'),
                 'types': 'Track',
             })
 
