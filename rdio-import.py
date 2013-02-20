@@ -86,9 +86,6 @@ try:
                 else:
                     track_ids.append(track['key'])
 
-            if counter > 5:
-                break
-
     # Add the harvested track IDs to the playlist.
     playlist = rdio.call('addToPlaylist', {
         'playlist': playlist['key'],
