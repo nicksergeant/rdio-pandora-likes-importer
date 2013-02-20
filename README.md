@@ -20,5 +20,16 @@ This is a workflow and Python script to import Pandora Likes to an Rdio playlist
 
         Artist -- Track Title
 
-## Requirements
+## Running the import script
 
+1. Copy `rdio_consumer_credentials-template.py` to `rdio_consumer_credentials.py`.
+2. Change the credentials in that file to your consumer key and secret as indicated by
+your Rdio application (you can apply for one [here](http://developer.rdio.com/apps/register)).
+3. Make sure your text file with tracks exported from Pandora are in `tracks.txt` in the
+directory of this script.
+4. Run `python rdio-import.py`
+5. Visit the link to request authentication.
+6. Enter the authentication PIN in your terminal.
+7. Watch and wait.
+8. Magic.
+9. Profit.
