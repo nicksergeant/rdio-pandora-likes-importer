@@ -49,7 +49,7 @@ try:
     if playlist is None:
         playlist = rdio.call('createPlaylist', {
             'name': 'Pandora Likes',
-            'description': 'Tracks imported from my Pandora likes',
+            'description': 'Tracks imported from my Pandora likes.',
             'tracks': '',
         })
         playlist['trackKeys'] = []
@@ -78,7 +78,10 @@ try:
 
                 track = search['result']['results'][0]
 
-                print '   Found: {} -  {}'.format(track['artist'], track['name'])
+                print '     Found: {} -- {}'.format(
+                    track['artist'].encode('ascii', 'ignore'),
+                    track['name'].encode('ascii', 'ignore'),
+                )
 
                 # Don't include this track if it's already in the playlist.
                 if track['key'] in playlist['trackKeys']:
