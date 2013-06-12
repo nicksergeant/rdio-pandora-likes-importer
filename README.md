@@ -6,6 +6,13 @@ This is a workflow and Python script to import Pandora Likes to an Rdio playlist
 
 1. Head to http://www.pandora.com/profile/likes/username to view your likes (replace with your username, of course).
 2. Click "Show more" a bunch of times until you can see all of your likes on the page (the "Show more" link will be gone).
+    If you would like to automate the "Show more" click, you can open the javascript console and type:
+
+        $('.backstage .show_more').trigger('click');
+        $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+    
+    Each time you paste this in and press enter it will act as if you clicked show more and scrolled to the bottom of the page.
+
 3. Open up a JavaScript console and type:
     
         $tracks = $('div#track_like_pages div.section');
