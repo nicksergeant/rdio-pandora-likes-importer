@@ -62,32 +62,37 @@ try:
         tracks_count = len(tracks_lines)
         tracks = csv.reader(tracks_lines)
         track_ids = []
+        errored_tracks = []
 
         for (counter, track) in enumerate(tracks):
 
             print '\n{} of {}: {}'.format(counter + 1, tracks_count, track[0])
 
-            # Try and find this track on Rdio.
-            search = rdio.call('search', {
-                'query': track[0].encode('ascii', 'ignore'),
-                'types': 'Track',
-            })
+            try:
+                # Try and find this track on Rdio.
+                search = rdio.call('search', {
+                    'query': track[0].encode('ascii', 'ignore'),
+                    'types': 'Track',
+                })
 
-            # If we have results, store the track ID for the first result.
-            if search['result']['number_results'] > 0:
+                # If we have results, store the track ID for the first result.
+                if search['result']['number_results'] > 0:
 
-                track = search['result']['results'][0]
+                    track = search['result']['results'][0]
 
-                print '     Found: {} -- {}'.format(
-                    track['artist'].encode('ascii', 'ignore'),
-                    track['name'].encode('ascii', 'ignore'),
-                )
+                    print '     Found: {} -- {}'.format(
+                        track['artist'].encode('ascii', 'ignore'),
+                        track['name'].encode('ascii', 'ignore'),
+                    )
 
-                # Don't include this track if it's already in the playlist.
-                if track['key'] in playlist['trackKeys']:
-                    print '   (ignoring track: already in playlist)'
-                else:
-                    track_ids.append(track['key'])
+                    # Don't include this track if it's already in the playlist.
+                    if track['key'] in playlist['trackKeys']:
+                        print '   (ignoring track: already in playlist)'
+                    else:
+                        track_ids.append(track['key'])
+
+            except UnicodeDecodeError:
+              errored_tracks.append(track)
 
     # Add the harvested track IDs to the playlist.
     playlist = rdio.call('addToPlaylist', {
@@ -95,5 +100,10 @@ try:
         'tracks': ','.join(track_ids),
     })
 
+    if len(errored_tracks) > 0:
+      print 'The following tracks were not able to be processed due to special characters.\nPlease replace special characters and rerun on this subset.'
+      for (track) in enumerate(errored_tracks):
+        print track[1][0]
+    
 except HTTPError, e:
     print e.read()
